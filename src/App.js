@@ -1,25 +1,22 @@
-import logo from './logo.svg';
 import './App.css';
 
 function App() {
+  /*
+  Return of App component
+  */
   return (
-    <div className="App">
-      <h1>CS430 Project</h1>
-      {/* <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header> */}
-    </div>
+    <body className="App">
+      <header className={'header'}>
+        <h1>CS430 PROJECT</h1>
+      </header>
+      <section className="section1">
+        <h2 className="section1-title"> Median Finding: 2 Sorted Arrays </h2>
+      </section>
+      <section className="section2">
+        <h2 className="section2-title">Searching: Roman Numerals</h2>
+      </section>
+
+    </body>
   );
 }
 
