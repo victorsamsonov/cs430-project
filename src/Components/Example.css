@@ -21,7 +21,6 @@
 }
 
 .example-container{
-    margin-bottom:.75rem;
     animation: 1.5s ease-out 0s 1 fadeIn;
 }
 

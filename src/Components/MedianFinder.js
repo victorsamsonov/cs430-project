@@ -60,7 +60,7 @@ const MedianFinder = (props) => {
     sameLength: true,
   });
 
-  console.log(state, "length");
+
 
   const handleArrayInput = (array, input) => {
     //remove all the white spaces from the input, and convert into an array
@@ -114,9 +114,7 @@ const MedianFinder = (props) => {
         Click an Example or provide an Input (has to be sorted and of the same
         length)
       </h3>
-      {errorMessage === "" ? (
-        <></>
-      ) : (
+     
         <div className="error-div">
           <text
             className="output-text"
@@ -125,7 +123,7 @@ const MedianFinder = (props) => {
             {errorMessage}
           </text>
         </div>
-      )}
+      )
 
       <div className="example-row">
         <a style={{flex:1}} href="#" onClick={() => onExamplePress(EXAMPLE1)}>
@@ -163,7 +161,9 @@ const MedianFinder = (props) => {
               onChange={(e) => handleArrayInput("A", e.target.value)}
             />
             <text>Current Array A:</text>
-            <Example array={arrayA} />
+            <div className="current-array-container">
+              <Example array={arrayA} />
+            </div>
           </label>
           <label className="labelB">
             Array B Input
