@@ -5,8 +5,6 @@ import FindMedian from "../Algorithms/FindMedian";
 
 const ACTIONS = {
   SORTED: "sorted",
-  SAME_LENGTH: "length",
-  NOT_SAME_LENGTH: "notSameLength",
   NOT_SORTED: "notSorted",
 };
 
@@ -27,20 +25,10 @@ const EXAMPLE3 = {
 
 function reducer(state, action) {
   switch (action.type) {
-    case ACTIONS.SAME_LENGTH:
-      document.getElementsByClassName("check-item")[1].style.backgroundColor =
-        "rgba(41, 255, 191,.8)";
-      return { sameLength: true };
     case ACTIONS.SORTED:
       document.getElementsByClassName("check-item")[0].style.backgroundColor =
         "rgba(41, 255, 191,.8)";
       return { isSorted: true };
-
-    case ACTIONS.NOT_SAME_LENGTH:
-      document.getElementsByClassName("check-item")[1].style.backgroundColor =
-        "rgba(255, 39, 39,.8)";
-
-      return { sameLength: false };
     case ACTIONS.NOT_SORTED:
       document.getElementsByClassName("check-item")[0].style.backgroundColor =
         "rgba(255, 39, 39,.8)";
@@ -57,7 +45,6 @@ const MedianFinder = (props) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [state, dispatch] = useReducer(reducer, {
     isSorted: true,
-    sameLength: true,
   });
 
 
@@ -126,7 +113,7 @@ const MedianFinder = (props) => {
       )
 
       <div className="example-row">
-        <a style={{flex:1}} href="#" onClick={() => onExamplePress(EXAMPLE1)}>
+        <a style={{flex:1}} onClick={() => onExamplePress(EXAMPLE1)}>
           <div className="example-cell" >
             <text>Example 1</text>
             <Example array={EXAMPLE1.A} />
@@ -134,7 +121,7 @@ const MedianFinder = (props) => {
           </div>
         </a>
 
-        <a style={{flex:1}} href="#" onClick={() => onExamplePress(EXAMPLE2)}>
+        <a style={{flex:1}} onClick={() => onExamplePress(EXAMPLE2)}>
           <div className="example-cell" >
             <text>Example 2</text>
             <Example array={EXAMPLE2.A} />
@@ -142,7 +129,7 @@ const MedianFinder = (props) => {
           </div>
         </a>
 
-        <a style={{flex:1}} href="#" onClick={() => onExamplePress(EXAMPLE3)}>
+        <a style={{flex:1}} onClick={() => onExamplePress(EXAMPLE3)}>
           <div className="example-cell" >
             <text>Example 3</text>
             <Example array={EXAMPLE3.A} />
@@ -187,12 +174,12 @@ const MedianFinder = (props) => {
           value="Compute Median"
           className="submit"
           onClick={() => {
-            if (state.isSorted && arrayA.length === arrayB.length){
+            if (state.isSorted){
               setOutput(FindMedian(arrayA, arrayB)); setErrorMessage("");
             }
             else {
               setErrorMessage(
-                "Make Sure the arrays are sorted, and the lengths are the same!"
+                "Make Sure the arrays are sorted!"
               );
             }
           }}
@@ -203,10 +190,7 @@ const MedianFinder = (props) => {
           <text>Is Sorted?</text>
           <div id="check-item" className="check-item"></div>
         </div>
-        <div className="check-column">
-          <text>Is Same Length?</text>
-          <div className="check-item"></div>
-        </div>
+
       </div>
       <div className="output-div">
         <div className="output-div-column">

@@ -1,6 +1,6 @@
 function FindMedian(A, B) {
   if (A.length > B.length) {
-    return "The length has to be the same";
+     return FindMedian(B, A);
   }
 
   let x = A.length; //always the shorter array
