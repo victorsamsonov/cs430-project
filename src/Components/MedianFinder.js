@@ -3,11 +3,13 @@ import "./MedianFinder.css";
 import Example from "./Example.js";
 import FindMedian from "../Algorithms/FindMedian";
 
+//Actions for useReducer hook
 const ACTIONS = {
   SORTED: "sorted",
   NOT_SORTED: "notSorted",
 };
 
+//Default examples that the user will be able to select
 const EXAMPLE1 = {
   A: [1, 3, 5, 7],
   B: [2, 4, 6, 8],
@@ -22,7 +24,7 @@ const EXAMPLE3 = {
   A: [1, 2, 5, 11, 17, 22],
   B: [3, 4, 6, 8, 9, 10],
 };
-
+//Function to hande reducer state changes, which will primarily result in the sorted indicator updated (green if sorted, and red if not sorted)
 function reducer(state, action) {
   switch (action.type) {
     case ACTIONS.SORTED:
@@ -35,8 +37,9 @@ function reducer(state, action) {
       return { isSorted: false };
   }
 }
-
-const MedianFinder = (props) => {
+//Median finder component
+const MedianFinder = () => {
+  //constants for useState and useReducer hooks
   const [arrayA, setArrayA] = useState([]);
   const [arrayB, setArrayB] = useState([]);
   const [arrayAInput, setArrayAInput] = useState([]);
@@ -46,37 +49,34 @@ const MedianFinder = (props) => {
   const [state, dispatch] = useReducer(reducer, {
     isSorted: true,
   });
-
-
-
+  //handles the user input (NaN input, spaces, parsing, etc)
   const handleArrayInput = (array, input) => {
     //remove all the white spaces from the input, and convert into an array
     let textArray = input.replace(/ /g, "").split(",");
-
-    console.log(textArray);
+    //User is adding input for array A
     if (array === "A") {
       setArrayAInput(input);
       setArrayA(textArrayToIntArray(textArray));
-    } else {
+    } else { //User is adding input for array B
       setArrayBInput(input);
       setArrayB(textArrayToIntArray(textArray));
     }
   };
-
+  //converts a the text array obtained throught user input into an integer array
   const textArrayToIntArray = (array) => {
     let output = [];
     for (let t of array) {
-      if (t !== "") output.push(parseInt(t));
+      if (t !== "" && !isNaN(t)) output.push(parseInt(t));
     }
-
     return output;
   };
 
+  //handles the examples selections which updates the state for both arrays, by using the constants EXAMPLE1, EXAMPLE2, and EXAMPLE3 (the only possible objects that can be selected)
   const onExamplePress = (example) => {
     setArrayA(example.A);
     setArrayB(example.B);
   };
-
+  //checks if soreted
   function checkIfSorted(arr) {
     for (let i = 0; i < arr.length - 1; i++) {
       if (arr[i] > arr[i + 1]) {
@@ -84,7 +84,7 @@ const MedianFinder = (props) => {
       }
     }
   }
-
+  //on arrayB or arrayA input change, a dispatch call is sent for the reducer to update the state
   useEffect(() => {
     if (arrayB.length === arrayA.length) dispatch({ type: "length" });
     else {
@@ -94,13 +94,16 @@ const MedianFinder = (props) => {
       dispatch({ type: "notSorted" });
     else dispatch({ type: "sorted" });
   }, [arrayB, arrayA]);
-
+  //Median finder return component
   return (
     <div className="container">
       <h3 className="info">
-        Click an Example or provide an Input (has to be sorted and of the same
-        length)
+        Click an Example or provide an Input
       </h3>
+      <ul>
+        <li>Has to be Sorted</li>
+        <li>Numbers separated by ' , ' (1, 2, 3, ...)</li>
+      </ul>
      
         <div className="error-div">
           <text
@@ -110,7 +113,7 @@ const MedianFinder = (props) => {
             {errorMessage}
           </text>
         </div>
-      )
+      
 
       <div className="example-row">
         <a style={{flex:1}} onClick={() => onExamplePress(EXAMPLE1)}>
@@ -138,7 +141,7 @@ const MedianFinder = (props) => {
         </a>
       </div>
       <div className="input-row">
-        <form>
+        <form autoComplete='off'>
           <label className="labelA">
             Array A Input:
             <input
@@ -166,6 +169,7 @@ const MedianFinder = (props) => {
               <Example array={arrayB} />
             </div>
           </label>
+          
         </form>
       </div>
       <div className="submit-container">
@@ -173,7 +177,9 @@ const MedianFinder = (props) => {
           type="submit"
           value="Compute Median"
           className="submit"
+
           onClick={() => {
+            //checks if sorted, if not, sets the error message, otherwise, proceed with the computation
             if (state.isSorted){
               setOutput(FindMedian(arrayA, arrayB)); setErrorMessage("");
             }
@@ -194,6 +200,7 @@ const MedianFinder = (props) => {
       </div>
       <div className="output-div">
         <div className="output-div-column">
+          {/*outputs the median*/}
           <text>Output:</text>
           <text className="output-text">{output}</text>
         </div>
