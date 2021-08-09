@@ -72,3 +72,5 @@ const toRoman = (x) => {
     return y + " is " + roman + " in Roman numerals.";
   }
 };
+
+export default toRoman;
