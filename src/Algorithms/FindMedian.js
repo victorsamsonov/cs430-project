@@ -1,7 +1,9 @@
 function FindMedian(A, B) {
   if (A.length > B.length) {
-     return FindMedian(B, A);
+    return FindMedian(B, A);
   }
+
+  if (A.length === 0 && B.length === 0) return 0;
 
   let x = A.length; //always the shorter array
   let y = B.length; //always the longer array
@@ -32,9 +34,7 @@ function FindMedian(A, B) {
       //there is nothing left of the partition in the smaller array
       leftX = Number.MIN_VALUE;
     } else {
-      console.log("hii");
       leftX = A[partitionX - 1];
-      console.log(partitionX, "leftX");
     }
 
     if (partitionX == x) {
