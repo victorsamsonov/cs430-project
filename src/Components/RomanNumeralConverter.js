@@ -48,7 +48,7 @@ const RomanNumeralConverter = () => {
                 className="submit"
 
                 onClick={() => {
-                    if (intInput > 0 && intInput < 10000){
+                    if (Number(intInput) !== NaN && intInput > 0 && intInput < 10000){
                         setOutput(toRoman(intInput));
                         setErrorMessage("");
                     }
